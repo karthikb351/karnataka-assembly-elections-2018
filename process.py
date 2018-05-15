@@ -20,6 +20,6 @@ headers = [
 #     if (row['Leading Party'] == 'Bharatiya Janata Party' and int(row['Margin']) < 500):
 #         print row['Constituency Name'], row['Margin']
 
-res = sorted((f for f in data if f['leading_party'] == 'Bharatiya Janata Party'), key=lambda x: int(x['margin']), reverse=True)
+res = sorted((f for f in data if f['leading_party'] == 'Bharatiya Janata Party' and f['status'] == 'Result Declared'), key=lambda x: int(x['margin']), reverse=True)
 for r in res:
     print r['constituency_name'], r['margin'], "||", r['2013_winning_party'], "with", r['2013_margin']
