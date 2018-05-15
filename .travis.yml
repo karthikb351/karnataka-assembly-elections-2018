@@ -1,0 +1,19 @@
+language: python
+python:
+  - "2.7"
+branches:
+  only:
+  - master
+script: python main.py
+deploy:
+  provider: pages
+  local-dir: src
+  skip-cleanup: true
+  github-token: $GH_TOKEN  # Set in the settings page of your repository, as a secure variable
+  on:
+    branch: master
+install:
+- pip install -r requirements.txt
+env:
+  global:
+  - GH_REF: github.com/karthikb351/karnataka-assembly-elections-2018.git
