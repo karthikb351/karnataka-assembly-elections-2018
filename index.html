@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Karnataka Assembly Elections 2018</title>
+    <!-- <meta http-equiv="refresh" content="300"> -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <!-- Mobile meta tags-->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="cleartype" content="on">
+    <!-- INCLUDES -->
+    <!-- Base styles: Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <style type="text/css">
+    /* Sticky footer styles
+    -------------------------------------------------- */
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+    body {
+      /* Margin bottom by footer height */
+      margin-bottom: 60px;
+    }
+    .footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      /* Set the fixed height of the footer here */
+      height: 60px;
+      background-color: #f5f5f5;
+    }
+    .container .text-muted {
+      margin: 20px 0;
+    }
+
+    .footer > .container {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+
+    code {
+      font-size: 80%;
+    }
+
+    tfoot {
+         display: table-header-group;
+    }
+    </style>
+    <!-- JS: Libraries -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115451267-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-115451267-2');
+    </script>
+    <!-- End Google Analytics Javascript -->
+</head>
+<body>
+  <div class="container">
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Karnataka Assembly Elections 2018</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="api/trend.json">Trend data API</a></li>
+              <li><a href="api/constituency.json">Constituency data API</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <div class="row">
+        <table id="mainTable" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+             <tr>
+                 <th>Constituency Name</th>
+                 <th>Leading Candidate</th>
+                 <th>Leading Party</th>
+                 <th>Trailing Candidate</th>
+                 <th>Trailing Party</th>
+                 <th>Margin</th>
+                 <th>Status</th>
+                 <th>2013 Winning Candidate</th>
+                 <th>2013 Winning Party</th>
+                 <th>2013 Margin</th>
+             </tr>
+             <tr>
+                 <th>Constituency Name</th>
+                 <th>Leading Candidate</th>
+                 <th>Leading Party</th>
+                 <th>Trailing Candidate</th>
+                 <th>Trailing Party</th>
+                 <th>Margin</th>
+                 <th>Status</th>
+                 <th>2013 Winning Candidate</th>
+                 <th>2013 Winning Party</th>
+                 <th>2013 Margin</th>
+             </tr>
+         </thead>
+        </table>
+      </div>
+    </div> <!-- /container -->
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Made with <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color:red;"></span> by <a href="https://twitter.com/karthikb351">@karthikb351</a> | <a href="https://github.com/karthikb351/karnataka-assembly-elections-2018">View on GitHub</a></p>
+      </div>
+    </footer>
+    <!-- Custom JS -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $.getJSON('api/trend.json', function (dataSet) {
+        $('#mainTable thead tr:eq(0) th').each( function () {
+            var title = $('#mainTable thead tr:eq(1) th').eq( $(this).index() ).text();
+            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        } )
+        var table = $('#mainTable').DataTable({
+          "pageLength": 240,
+          "scrollX": true,
+          "data": dataSet,
+          "processing": true,
+          "fixedHeader": true,
+          "columns": [
+            {
+              // "title": "Constituency Name",
+              "data": "constituency_name"
+            },
+            {
+              // "title": "Leading Candidate",
+              "data": "leading_candidate"
+            },
+            {
+              // "title": "Leading Party",
+              "data": "leading_party"
+            },
+            {
+              // "title": "Trailing Candidate",
+              "data": "trailing_candidate"
+            },
+            {
+              // "title": "Trailing Party",
+              "data": "trailing_party"
+            },
+            {
+              // "title": "Margin",
+              "data": "margin"
+            },
+            {
+              // "title": "Status",
+              "data": "status"
+            },
+            {
+              // "title": "2013 Winning Candidate",
+              "data": "2013_winning_candidate"
+            },
+            {
+              // "title": "2013 Winning Party",
+              "data": "2013_winning_party"
+            },
+            {
+              // "title": "2013 Margin",
+              "data": "2013_margin"
+            }
+          ],
+          "rowCallback": function(row, data, index){
+            if(data['leading_party'] === "Bharatiya Janata Party"){
+                $(row).find('td:eq(2)').css('background', 'orange');
+            }
+            if(data['leading_party'] === "Indian National Congress"){
+                $(row).find('td:eq(2)').css('background', 'blue').css("color", "white");
+            }
+            if(data['leading_party'] === "Janata Dal  (Secular)"){
+                $(row).find('td:eq(2)').css('background', 'green').css("color", "white");
+            }
+
+            if(data['trailing_party'] === "Bharatiya Janata Party"){
+                $(row).find('td:eq(4)').css('background', 'orange');
+            }
+            if(data['trailing_party'] === "Indian National Congress"){
+                $(row).find('td:eq(4)').css('background', 'blue').css("color", "white");
+            }
+            if(data['trailing_party'] === "Janata Dal  (Secular)"){
+                $(row).find('td:eq(4)').css('background', 'green').css("color", "white");
+            }
+
+            if(data['2013_winning_party'] === "Bharatiya Janata Party"){
+                $(row).find('td:eq(8)').css('background', 'orange');
+            }
+            if(data['2013_winning_party'] === "Indian National Congress"){
+                $(row).find('td:eq(8)').css('background', 'blue').css("color", "white");
+            }
+            if(data['2013_winning_party'] === "Janata Dal  (Secular)"){
+                $(row).find('td:eq(8)').css('background', 'green').css("color", "white");
+            }
+          }
+        });
+        table.columns().every(function (index) {
+          $('.dataTables_scrollHead thead tr:eq(0) th input')
+            .on('keyup change', $.debounce(300, function () {
+              table.column($(this).parent().index() + ':visible')
+                .search(this.value)
+                .draw();
+            }));
+        });
+      });
+    });
+    </script>
+    <!-- Close content-->
+    </div>
+    </body>
+</html>
